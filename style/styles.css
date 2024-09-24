@@ -1,0 +1,106 @@
+body {
+    font-family: 'DM Sans',sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.90)),
+    url("../img/img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    line-height: 1.5
+}
+#logo_img{
+    height: 5rem;
+}
+
+header {
+    text-align: center;
+    /* margin-bottom: 20px; */
+    color: rgb(255, 255, 255);
+    opacity: 0.89;
+}
+
+.header-start{
+    background-color: #150d0d;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+.header-start h1{
+    opacity: 1;
+    font-weight: bold;
+}
+.logo_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+/* https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg */
+.provider-options {
+    /* margin-top: 70px; */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    /* margin-bottom: 20px; */
+}
+
+.provider {
+    color: white;
+    opacity: 0.8;
+    margin-top: 2rem;
+    background: #302c2c;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.provider p{
+    color: #f87c44;
+} 
+.provider img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.provider:hover {
+    transform: scale(1.05);
+}
+
+.service-list {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#aws-services {
+    list-style-type: none;
+    padding: 0;
+}
+
+.service-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.service-item:hover {
+    background-color: #e9ecef;
+}
+
+footer {
+    text-align: center;
+    /* margin-top: 20px; */
+    background-color: #f18857;
+}

@@ -23,13 +23,12 @@ header {
 }
 
 .header-start{
-    background-color: #150d0d;
+    background-color: #de9870;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    
 }
 .header-start h1{
     opacity: 1;

@@ -13,6 +13,16 @@
             justify-content: center;
             height: 100vh;
             background-color: #f4f4f4;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.90)), url("../img/img.jpg"); /* Optional background image */
+            background-repeat: no-repeat; 
+            background-size: cover;
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+        }
+        h1 {
+            color: white; /* Match the header text color */
+            opacity: 0.89;
+            margin-bottom: 20px; /* Add some space below the heading */
         }
         .button {
             padding: 15px 30px;
@@ -22,15 +32,19 @@
             color: white;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s; /* Smooth transition for background color */
         }
         .create {
-            background-color: green; /* Green button */
+            background-color: #4CAF50; /* Darker green for better visibility */
         }
         .list {
-            background-color: orange; /* Orange button */
+            background-color: #FFA500; /* Orange button */
         }
         .delete {
-            background-color: red; /* Red button */
+            background-color: #f44336; /* Darker red for better visibility */
+        }
+        .button:hover {
+            filter: brightness(90%); /* Slightly darken on hover */
         }
     </style>
 </head>

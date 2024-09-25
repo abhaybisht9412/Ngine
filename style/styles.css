@@ -7,7 +7,7 @@ body {
     height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.90)),
     url("../img/img.jpg");
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
     background-size: cover;
     line-height: 1.5
 }
@@ -23,7 +23,7 @@ header {
 }
 
 .header-start{
-    background-color: #de9870;
+    /* background-color: #de9870; */
     height: 50px;
     display: flex;
     justify-content: center;

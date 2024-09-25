@@ -78,6 +78,8 @@ select{
     width: 50%;
     height: 40px;
     padding-left: 6px;
+    background-color: rgb(61, 60, 60);
+    color: #fff;
 }
 .btnRegister{
     background-color: #f87c44;

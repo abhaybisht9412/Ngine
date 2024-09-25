@@ -3,27 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./style/services.css">
     <title>AWS Services</title>
 </head>
 <body>
     <header>
         <h1>AWS Services</h1>
+        <img id="logo_img" src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg" alt="">
     </header>
+    <hr>
     <main>
-        <ul id="aws-services">
-            <li><a href="s3.html" target="_blank">S3</a></li> <!-- Link to S3 actions page -->
-            <li><a href="https://aws.amazon.com/rds/">RDS</a></li>
-            <li><a href="https://aws.amazon.com/ec2/">EC2</a></li>
-            <li><a href="https://aws.amazon.com/lambda/">Lambda</a></li>
-            <li><a href="https://aws.amazon.com/dynamodb/">DynamoDB</a></li>
-            <li><a href="https://aws.amazon.com/cloudfront/">CloudFront</a></li>
-            <li><a href="https://aws.amazon.com/sqs/">SQS</a></li>
-        </ul>
+        <div class="card-container">
+            
+            <div class="provider">
+                <a href="s3.html"><h2><a href="s3.html" target="_blank">S3</a></h2>
+                <p>Simple Storage Service for scalable object storage.</p></a>
+            </div>
+            <div class="provider">
+                <h2><a href="https://aws.amazon.com/rds/">RDS</a></h2>
+                <p>Relational Database Service for setting up and managing databases.</p>
+            </div>
+            <div class="provider">
+                <h2><a href="https://aws.amazon.com/ec2/">EC2</a></h2>
+                <p>Elastic Compute Cloud for scalable computing capacity in the cloud.</p>
+            </div>
+            <div class="provider">
+                <h2><a href="https://aws.amazon.com/lambda/">Lambda</a></h2>
+                <p>Run code without provisioning servers with serverless computing.</p>
+            </div>
+            <div class="provider">
+                <h2><a href="https://aws.amazon.com/dynamodb/">DynamoDB</a></h2>
+                <p>NoSQL database service for high-performance and scalability.</p>
+            </div>
+            <div class="provider">
+                <h2><a href="https://aws.amazon.com/cloudfront/">CloudFront</a></h2>
+                <p>Content Delivery Network (CDN) for fast distribution of content.</p>
+            </div>
+            <div class="provider">
+                <h2><a href="https://aws.amazon.com/sqs/">SQS</a></h2>
+                <p>Simple Queue Service for message queuing between distributed systems.</p>
+            </div>
+        </div>
         <a href="index.html">Back to Providers</a>
     </main>
-    <footer>
+    <!-- <footer>
         <p>&copy; 2024 Cloud Services. All rights reserved.</p>
-    </footer>
+    </footer> -->
 </body>
 </html>

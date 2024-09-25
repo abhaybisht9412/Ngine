@@ -1,229 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/styles.css" />
     <title>Cloud Services</title>
-    <!-- b5 cdn -->
+    <!-- Bootstrap CDN -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <!-- animate css -->
+    <!-- Animate CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-  </head>
-  <body>
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="styles.css" />
-        <title>Custom Navbar</title>
-      </head>
-      <body>
-        <nav class="navbar">
-          <div class="navbar-brand">
-            <a href="/"
-              ><img
-                class="logo"
-                src="./img/output-onlinepngtools.png"
-                alt="Logo"
-            /></a>
-          </div>
-          <div class="navbar-links">
-            <a href="#">Services</a>
-            <a href="#">Work</a>
-            <a href="#">About</a>
-          </div>
-        </nav>
-      </body>
-    </html>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/"><img class="logo" src="./img/output-onlinepngtools.png" alt="Logo" /></a>
+        </div>
+        <div class="navbar-links">
+            <a href="#cloud-providers">SERVICES</a> <!-- Updated link -->
+            <a href="#">WORK</a>
+            <a href="#">ABOUT</a>
+        </div>
+    </nav>
 
     <div class="top_container">
-      <div class="left">
-        <!-- Left Column Content -->
-        <h2>GlobalLogic</h2>
-          <h1 style="font-weight: 900;">OpeNgine</h1>
-          <p>Addresses customers’ needs for a ‘ready to use’ modern DevOps toolchain that delivers a comprehensive and integrated solution accelerating product development.</p>
-      </div>
-      <div class="right">
-        <!-- Right Column Content -->
-        <img
-          id="logo_img"
-          src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg"
-          alt=""
-        />
-      </div>
+        <div class="left">
+            <h2>GlobalLogic</h2>
+            <h1 style="font-weight: 900;">OpeNgine</h1>
+            <p>Addresses customers’ needs for a ‘ready to use’ modern DevOps toolchain that delivers a comprehensive and integrated solution accelerating product development.</p>
+        </div>
+        <div class="right">
+            <img id="logo_img" src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg" alt="" />
+        </div>
     </div>    
 
-    <header>
-      <div class="header-start">
-        <h1>Choose Your Cloud Provider</h1>
-      </div>
-      <div class="logo_container">
-        
-        <h1 style="display: inline; color: #de9870; letter-spacing: 0cap">
-          OpeNgine
-        </h1>
-      </div>
+    <div style="width: 100%; height: 30px; background-color: #e97c3e; "></div>
+
+    <header id="cloud-providers"> <!-- Added ID for scrolling -->
+        <div class="header-start">
+            <h1>Choose Your Cloud Provider</h1>
+        </div>
+        <div class="logo_container">
+            <h1 style="display: inline; font-weight: bolder; color: #e97c3e; letter-spacing: 0cap">OpeNgine</h1>
+        </div>
     </header>
+
     <main>
-      <div class="provider-options animate__animated animate__fadeInUp">
-        <a
-          style="text-decoration: none; cursor: pointer; color: black"
-          href="credentials.html"
-          ><div class="provider" id="aws-btn">
-            <img
-              src="https://www.globallogic.com/wp-content/uploads/2021/03/icon-aws.svg"
-              alt="AWS Logo"
-            />
-            <h2>AWS</h2>
-            <p>
-              Explore the wide range of cloud services offered by Amazon Web
-              Services for scalable, flexible, and cost-effective solutions
-            </p>
-          </div></a
-        >
-
-        <div class="provider" id="azure-btn">
-          <img
-            src="https://www.globallogic.com/wp-content/uploads/2021/03/icon-azure.svg"
-            alt="Azure Logo"
-          />
-          <h2>Azure</h2>
-          <p>
-            Discover Microsoft's cloud computing services for building, testing,
-            and managing applications.
-          </p>
+        <div class="provider-options animate__animated animate__fadeInUp">
+            <a style="text-decoration: none; cursor: pointer; color: black" href="credentials.html">
+                <div class="provider" id="aws-btn">
+                    <img src="https://www.globallogic.com/wp-content/uploads/2021/03/icon-aws.svg" alt="AWS Logo" />
+                    <h2>AWS</h2>
+                    <p>Explore the wide range of cloud services offered by Amazon Web Services for scalable, flexible, and cost-effective solutions</p>
+                </div>
+            </a>
+            <div class="provider" id="azure-btn">
+                <img src="https://www.globallogic.com/wp-content/uploads/2021/03/icon-azure.svg" alt="Azure Logo" />
+                <h2>Azure</h2>
+                <p>Discover Microsoft's cloud computing services for building, testing, and managing applications.</p>
+            </div>
+            <div class="provider" id="gcp-btn">
+                <img src="https://www.globallogic.com/wp-content/uploads/2021/03/icon-gcp.svg" alt="GCP Logo" />
+                <h2>GCP</h2>
+                <p>Unlock the power of Google Cloud Platform for your business needs.</p>
+            </div>
         </div>
-        <div class="provider" id="gcp-btn">
-          <img
-            src="https://www.globallogic.com/wp-content/uploads/2021/03/icon-gcp.svg"
-            alt="GCP Logo"
-          />
-          <h2>GCP</h2>
-          <p>
-            Unlock the power of Google Cloud Platform for your business needs.
-          </p>
+
+        <div id="service-list" class="hidden">
+            <h2>AWS Services</h2>
+            <ul id="aws-services">
+                <li data-url="https://aws.amazon.com/s3/" class="service-item">S3</li>
+                <li data-url="https://aws.amazon.com/rds/" class="service-item">RDS</li>
+                <li data-url="https://aws.amazon.com/ec2/" class="service-item">EC2</li>
+                <li data-url="https://aws.amazon.com/lambda/" class="service-item">Lambda</li>
+                <li data-url="https://aws.amazon.com/dynamodb/" class="service-item">DynamoDB</li>
+                <li data-url="https://aws.amazon.com/cloudfront/" class="service-item">CloudFront</li>
+                <li data-url="https://aws.amazon.com/sqs/" class="service-item">SQS</li>
+            </ul>
+
+            <h2>Azure Services</h2>
+            <ul id="azure-services" class="hidden">
+                <li data-url="https://azure.microsoft.com/en-us/services/storage/" class="service-item">Azure Storage</li>
+                <li data-url="https://azure.microsoft.com/en-us/services/sql-database/" class="service-item">Azure SQL Database</li>
+                <li data-url="https://azure.microsoft.com/en-us/services/app-service/" class="service-item">App Service</li>
+                <li data-url="https://azure.microsoft.com/en-us/services/functions/" class="service-item">Azure Functions</li>
+                <li data-url="https://azure.microsoft.com/en-us/services/cosmos-db/" class="service-item">Cosmos DB</li>
+                <li data-url="https://azure.microsoft.com/en-us/services/virtual-machines/" class="service-item">Virtual Machines</li>
+            </ul>
+
+            <h2>GCP Services</h2>
+            <ul id="gcp-services" class="hidden">
+                <li data-url="https://cloud.google.com/storage" class="service-item">Cloud Storage</li>
+                <li data-url="https://cloud.google.com/sql" class="service-item">Cloud SQL</li>
+                <li data-url="https://cloud.google.com/functions" class="service-item">Cloud Functions</li>
+                <li data-url="https://cloud.google.com/compute" class="service-item">Compute Engine</li>
+                <li data-url="https://cloud.google.com/firestore" class="service-item">Firestore</li>
+                <li data-url="https://cloud.google.com/load-balancing" class="service-item">Cloud Load Balancing</li>
+            </ul>
         </div>
-      </div>
-
-      <div id="service-list" class="hidden">
-        <h2>AWS Services</h2>
-        <ul id="aws-services">
-          <li data-url="https://aws.amazon.com/s3/" class="service-item">S3</li>
-          <li data-url="https://aws.amazon.com/rds/" class="service-item">
-            RDS
-          </li>
-          <li data-url="https://aws.amazon.com/ec2/" class="service-item">
-            EC2
-          </li>
-          <li data-url="https://aws.amazon.com/lambda/" class="service-item">
-            Lambda
-          </li>
-          <li data-url="https://aws.amazon.com/dynamodb/" class="service-item">
-            DynamoDB
-          </li>
-          <li
-            data-url="https://aws.amazon.com/cloudfront/"
-            class="service-item"
-          >
-            CloudFront
-          </li>
-          <li data-url="https://aws.amazon.com/sqs/" class="service-item">
-            SQS
-          </li>
-        </ul>
-
-        <h2>Azure Services</h2>
-        <ul id="azure-services" class="hidden">
-          <li
-            data-url="https://azure.microsoft.com/en-us/services/storage/"
-            class="service-item"
-          >
-            Azure Storage
-          </li>
-          <li
-            data-url="https://azure.microsoft.com/en-us/services/sql-database/"
-            class="service-item"
-          >
-            Azure SQL Database
-          </li>
-          <li
-            data-url="https://azure.microsoft.com/en-us/services/app-service/"
-            class="service-item"
-          >
-            App Service
-          </li>
-          <li
-            data-url="https://azure.microsoft.com/en-us/services/functions/"
-            class="service-item"
-          >
-            Azure Functions
-          </li>
-          <li
-            data-url="https://azure.microsoft.com/en-us/services/cosmos-db/"
-            class="service-item"
-          >
-            Cosmos DB
-          </li>
-          <li
-            data-url="https://azure.microsoft.com/en-us/services/virtual-machines/"
-            class="service-item"
-          >
-            Virtual Machines
-          </li>
-        </ul>
-
-        <h2>GCP Services</h2>
-        <ul id="gcp-services" class="hidden">
-          <li data-url="https://cloud.google.com/storage" class="service-item">
-            Cloud Storage
-          </li>
-          <li data-url="https://cloud.google.com/sql" class="service-item">
-            Cloud SQL
-          </li>
-          <li
-            data-url="https://cloud.google.com/functions"
-            class="service-item"
-          >
-            Cloud Functions
-          </li>
-          <li data-url="https://cloud.google.com/compute" class="service-item">
-            Compute Engine
-          </li>
-          <li
-            data-url="https://cloud.google.com/firestore"
-            class="service-item"
-          >
-            Firestore
-          </li>
-          <li
-            data-url="https://cloud.google.com/load-balancing"
-            class="service-item"
-          >
-            Cloud Load Balancing
-          </li>
-        </ul>
-      </div>
     </main>
-    <!-- <footer>
-      <p>&copy; 2024 Cloud Services. All rights reserved.</p>
-    </footer> -->
+
     <script src="script.js"></script>
 
-    <!-- b5  -->
+    <!-- Bootstrap JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-  </body>
+</body>
 </html>

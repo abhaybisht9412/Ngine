@@ -32,27 +32,19 @@
             color: white;
             cursor: pointer;
             font-size: 16px;
+            background-color: #f87c44; /* Button background color */
             transition: background-color 0.3s; /* Smooth transition for background color */
         }
-        .create {
-            background-color: #4CAF50; /* Darker green for better visibility */
-        }
-        .list {
-            background-color: #FFA500; /* Orange button */
-        }
-        .delete {
-            background-color: #f44336; /* Darker red for better visibility */
-        }
         .button:hover {
-            filter: brightness(90%); /* Slightly darken on hover */
+            background-color: #d67a38; /* Darker shade for hover effect */
         }
     </style>
 </head>
 <body>
     <h1>Choose an S3 Action</h1>
-    <button class="button create" onclick="window.open('https://console.aws.amazon.com/s3/home#/createbucket', '_blank')">Create Bucket</button>
-    <button class="button list" onclick="window.open('https://console.aws.amazon.com/s3/home#/buckets', '_blank')">List Buckets</button>
-    <button class="button delete" onclick="promptDeleteBucket()">Delete Bucket</button>
+    <button class="button" onclick="window.open('https://console.aws.amazon.com/s3/home#/createbucket', '_blank')">Create Bucket</button>
+    <button class="button" onclick="window.open('https://console.aws.amazon.com/s3/home#/buckets', '_blank')">List Buckets</button>
+    <button class="button" onclick="promptDeleteBucket()">Delete Bucket</button>
 
     <script>
         async function promptDeleteBucket() {

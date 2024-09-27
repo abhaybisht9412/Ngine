@@ -60,8 +60,6 @@ body {
     transition: background-color 0.3s;
 }
 
-
-
 header {
     text-align: center;
     /* margin-bottom: 20px; */
@@ -115,9 +113,11 @@ header {
     background-color: rgba(255, 255, 255, 0.1); 
     color: white; 
 }
+
 .left h1{
     margin-top: 2rem;
 }
+
 .left p{
     margin-top: 2rem;
     font-size: 18px;
@@ -134,6 +134,9 @@ header {
 #logo_img{
     margin-left: 5rem;
     height: 20rem;
+}
+main {
+    flex: 1; /* Allow main to grow and fill available space */
 }
 
 .provider {
@@ -187,7 +190,12 @@ header {
 }
 
 footer {
+    color: #fff;
     text-align: center;
     /* margin-top: 20px; */
-    background-color: #f18857;
+    background-color: #343a40;
+    padding: 10px 0; /* Add some padding for the footer */
+    position: relative; /* Ensure it positions correctly */
+    bottom: 0;
+    width: 100%; /* Full width */
 }

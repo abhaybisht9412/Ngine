@@ -46,9 +46,9 @@ header h1 {
 
 .card-container {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping to the next line */
+  flex-wrap: wrap; 
   justify-content: center;
-  gap: 30px; /* Space between cards */
+  gap: 30px; 
   margin-top: 2rem;
 }
 
@@ -60,8 +60,8 @@ header h1 {
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  width: calc(25% - 30px); /* 4 cards per row with gap */
-  min-width: 200px; /* Ensures a minimum width */
+  width: calc(25% - 30px); 
+  min-width: 200px; 
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -79,6 +79,17 @@ header h1 {
   color: #f87c44;
 }
 
+.provider a {
+  opacity: 0.9;
+  text-decoration: none;
+  color: inherit; 
+  display: block; 
+}
+
+.provider a:hover {
+  opacity: 1; 
+  text-decoration: none;
+}
 footer {
   text-align: center;
   background-color: #f18857;

@@ -50,6 +50,17 @@ body {
     color: #f18857;
 }
 
+/* Add this class to make navbar fixed */
+.navbar.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+    transition: background-color 0.3s;
+}
+
+
 
 
 header {

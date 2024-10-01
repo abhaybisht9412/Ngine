@@ -82,6 +82,7 @@ select{
     color: #fff;
 }
 .btnRegister{
+    color: white;
     background-color: #f87c44;
     width: 20%;
     float: right;;
@@ -89,15 +90,5 @@ select{
 }
 .btnRegister:hover{
     background-color: #FFF;
-}
-.next{
-  margin-top: 2rem;
-  padding: 10px;
-  width: 8rem;
-  background-color: #fff;
-  border-radius: 4px;
-  border: none;
-}
-.next:hover{
-  background-color: #f87c44;
+    color: black;
 }

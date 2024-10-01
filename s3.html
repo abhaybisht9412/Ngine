@@ -1,72 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/s3.css" />
+    <title>Bucket Management</title>
+  </head>
+  <body>
+    <h1>Bucket Management</h1>
+    <div class="container">
+      <img
+        id="logo_img"
+        src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg"
+        alt="OpeNgine"
+      />
+      <button class="button" id="createBucket">Create Bucket</button>
+      <button class="button" id="listBuckets">List Buckets</button>
+      <button class="button" id="deleteBucket">Delete Bucket</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+      async function fetchData(endpoint) {
+        const response = await fetch(endpoint, { method: "POST" });
+        return response.json();
+      }
+
+      document
+        .getElementById("createBucket")
+        .addEventListener("click", async () => {
+          const result = await fetchData("create_bucket.php");
+          document.getElementById("output").innerText = JSON.stringify(
+            result,
+            null,
+            2
+          );
+        });
+
+      document
+        .getElementById("listBuckets")
+        .addEventListener("click", async () => {
+          const result = await fetchData("list_buckets.php");
+          document.getElementById("output").innerText = JSON.stringify(
+            result,
+            null,
+            2
+          );
+        });
+
+      document
+        .getElementById("deleteBucket")
+        .addEventListener("click", async () => {
+          const result = await fetchData("delete_bucket.php");
+          document.getElementById("output").innerText = JSON.stringify(
+            result,
+            null,
+            2
+          );
+        });
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>S3 Actions</title>
+    <title>Bucket Management</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 20px;
             background-color: #f4f4f4;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.90)), url("../img/img.jpg"); /* Optional background image */
-            background-repeat: no-repeat; 
-            background-size: cover;
-            font-family: 'DM Sans', sans-serif;
-            margin: 0;
+            color: #333;
         }
         h1 {
-            color: white; /* Match the header text color */
-            opacity: 0.89;
-            margin-bottom: 20px; /* Add some space below the heading */
+            text-align: center;
+            color: #0056b3;
         }
         .button {
-            padding: 15px 30px;
+            display: inline-block;
             margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
             border: none;
             border-radius: 5px;
-            color: white;
             cursor: pointer;
-            font-size: 16px;
-            background-color: #f87c44; /* Button background color */
-            transition: background-color 0.3s; /* Smooth transition for background color */
+            transition: background-color 0.3s ease;
         }
         .button:hover {
-            background-color: #d67a38; /* Darker shade for hover effect */
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
         }
     </style>
 </head>
 <body>
-    <h1>Choose an S3 Action</h1>
-    <button class="button" onclick="window.open('https://console.aws.amazon.com/s3/home#/createbucket', '_blank')">Create Bucket</button>
-    <button class="button" onclick="window.open('https://console.aws.amazon.com/s3/home#/buckets', '_blank')">List Buckets</button>
-    <button class="button" onclick="promptDeleteBucket()">Delete Bucket</button>
+    <h1>Bucket Management</h1>
+    <button class="button" id="createBucket">Create Bucket</button>
+    <button class="button" id="listBuckets">List Buckets</button>
+    <button class="button" id="deleteBucket">Delete Bucket</button>
+
+    <div id="output"></div>
 
     <script>
-        async function promptDeleteBucket() {
-            const bucketName = prompt("Please enter the name of the bucket you want to delete:");
-            if (bucketName) {
-                const response = await fetch('YOUR_API_GATEWAY_ENDPOINT/delete-bucket', { // Replace with your API Gateway endpoint
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ bucket_name: bucketName })
-                });
-
-                if (response.ok) {
-                    alert(`Bucket ${bucketName} deleted successfully.`);
-                } else {
-                    alert(`Failed to delete bucket ${bucketName}.`);
-                }
-            } else {
-                alert("No bucket name entered.");
-            }
+        async function fetchData(endpoint) {
+            const response = await fetch(endpoint, { method: 'POST' });
+            return response.json();
         }
+
+        document.getElementById('createBucket').addEventListener('click', async () => {
+            const result = await fetchData('create_bucket.php');
+            document.getElementById('output').innerText = JSON.stringify(result, null, 2);
+        });
+
+        document.getElementById('listBuckets').addEventListener('click', async () => {
+            const result = await fetchData('list_buckets.php');
+            document.getElementById('output').innerText = JSON.stringify(result, null, 2);
+        });
+
+        document.getElementById('deleteBucket').addEventListener('click', async () => {
+            const result = await fetchData('delete_bucket.php');
+            document.getElementById('output').innerText = JSON.stringify(result, null, 2);
+        });
     </script>
 </body>
-</html>
+</html> -->

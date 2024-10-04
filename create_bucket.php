@@ -1,34 +1,29 @@
 <?php
 // create_bucket.php
-
-header('Content-Type: application/json'); // Set the response type to JSON
+header('Content-Type: application/json');
+header('Connection: keep-alive');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Change to the specified directory
     chdir('/home/ubuntu/OpeNgine-2');
 
-    $buildOutput = [];
-    $runOutput = [];
+    // Start a process to execute the commands and pipe output
+    $process = popen('sudo make build-docker 2>&1; sudo make docker-run 2>&1', 'r');
 
-    // Execute 'make build-docker'
-    exec('sudo make build-docker 2>&1', $buildOutput, $buildReturnVar);
-
-    // Execute 'make docker-run'
-    exec('sudo make docker-run 2>&1', $runOutput, $runReturnVar);
-
-    // Check if both commands were successful
-    if ($buildReturnVar === 0 && $runReturnVar === 0) {
-        echo json_encode([
-            'message' => 'Bucket created and commands executed successfully.',
-            'build_output' => implode("\n", $buildOutput),
-            'run_output' => implode("\n", $runOutput)
-        ]);
+    if (is_resource($process)) {
+        // Stream the output
+        while (!feof($process)) {
+            $line = fgets($process);
+            if ($line !== false) {
+                echo json_encode(['output' => trim($line)]);
+                flush(); // Flush the output buffer
+                ob_flush();
+                usleep(100000); // Add a small delay to avoid overwhelming the client
+            }
+        }
+        pclose($process);
     } else {
-        echo json_encode([
-            'message' => 'Error executing commands.',
-            'build_output' => implode("\n", $buildOutput),
-            'run_output' => implode("\n", $runOutput)
-        ]);
+        echo json_encode(['output' => 'Failed to start the process.']);
     }
 } else {
     echo json_encode(['message' => 'Invalid request method.']);

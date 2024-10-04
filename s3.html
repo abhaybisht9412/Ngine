@@ -1,140 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/s3.css" />
     <title>Bucket Management</title>
-  </head>
-  <body>
+</head>
+<body>
     <h1>Bucket Management</h1>
     <div class="container">
-      <img
-        id="logo_img"
-        src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg"
-        alt="OpeNgine"
-      />
-      <button class="button" id="createBucket">Create Bucket</button>
-      <button class="button" id="listBuckets">List Buckets</button>
-      <button class="button" id="deleteBucket">Delete Bucket</button>
+        <img
+            id="logo_img"
+            src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg"
+            alt="OpeNgine"
+        />
+        <button class="button" id="createBucket">Create Bucket</button>
+        <button class="button" id="listBuckets">List Buckets</button>
+        <button class="button" id="deleteBucket">Delete Bucket</button>
     </div>
 
     <div id="output"></div>
 
     <script>
-      async function fetchData(endpoint) {
-        const response = await fetch(endpoint, { method: "POST" });
-        return response.json();
-      }
+        async function createBucket() {
+            document.getElementById("output").innerHTML = "Creating bucket... Please wait.";
+            
+            const response = await fetch("create_bucket.php", { method: "POST" });
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
 
-      document
-        .getElementById("createBucket")
-        .addEventListener("click", async () => {
-          const result = await fetchData("create_bucket.php");
-          document.getElementById("output").innerText = JSON.stringify(
-            result,
-            null,
-            2
-          );
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                // Decode the value and split it by newlines
+                const lines = decoder.decode(value, { stream: true }).split('\n');
+                lines.forEach(line => {
+                    if (line) {
+                        try {
+                            const parsed = JSON.parse(line);
+                            document.getElementById("output").innerHTML += <pre>${parsed.output}</pre>;
+                        } catch (e) {
+                            console.warn('Could not parse line:', line);
+                        }
+                    }
+                });
+            }
+        }
+
+        document.getElementById("createBucket").addEventListener("click", createBucket);
+
+        // Placeholder functions for list and delete (implement these as needed)
+        document.getElementById("listBuckets").addEventListener("click", async () => {
+            const result = await fetchData("list_buckets.php");
+            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
         });
 
-      document
-        .getElementById("listBuckets")
-        .addEventListener("click", async () => {
-          const result = await fetchData("list_buckets.php");
-          document.getElementById("output").innerText = JSON.stringify(
-            result,
-            null,
-            2
-          );
-        });
-
-      document
-        .getElementById("deleteBucket")
-        .addEventListener("click", async () => {
-          const result = await fetchData("delete_bucket.php");
-          document.getElementById("output").innerText = JSON.stringify(
-            result,
-            null,
-            2
-          );
-        });
-    </script>
-  </body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Bucket Management</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #0056b3;
-        }
-        .button {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        #output {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 5px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-    </style>
-</head>
-<body>
-    <h1>Bucket Management</h1>
-    <button class="button" id="createBucket">Create Bucket</button>
-    <button class="button" id="listBuckets">List Buckets</button>
-    <button class="button" id="deleteBucket">Delete Bucket</button>
-
-    <div id="output"></div>
-
-    <script>
-        async function fetchData(endpoint) {
-            const response = await fetch(endpoint, { method: 'POST' });
-            return response.json();
-        }
-
-        document.getElementById('createBucket').addEventListener('click', async () => {
-            const result = await fetchData('create_bucket.php');
-            document.getElementById('output').innerText = JSON.stringify(result, null, 2);
-        });
-
-        document.getElementById('listBuckets').addEventListener('click', async () => {
-            const result = await fetchData('list_buckets.php');
-            document.getElementById('output').innerText = JSON.stringify(result, null, 2);
-        });
-
-        document.getElementById('deleteBucket').addEventListener('click', async () => {
-            const result = await fetchData('delete_bucket.php');
-            document.getElementById('output').innerText = JSON.stringify(result, null, 2);
+        document.getElementById("deleteBucket").addEventListener("click", async () => {
+            const result = await fetchData("delete_bucket.php");
+            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
         });
     </script>
 </body>
-</html> -->
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/s3.css" />
+    <title>EKS Management</title>
+</head>
+<body>
+    <h1>EKS Management</h1>
+    <div class="container">
+        <img
+            id="logo_img"
+            src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg"
+            alt="OpeNgine"
+        />
+        <button class="button" id="createCluster">Create Cluster</button>
+        <button class="button" id="listClusters">List Clusters</button>
+        <button class="button" id="deleteCluster">Delete Cluster</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        async function fetchData(endpoint) {
+            const response = await fetch(endpoint, { method: "POST" });
+            return response.json();
+        }
+
+        document
+            .getElementById("createCluster")
+            .addEventListener("click", async () => {
+                const result = await fetchData("create_cluster.php");
+                document.getElementById("output").innerText = JSON.stringify(
+                    result,
+                    null,
+                    2
+                );
+            });
+
+        document
+            .getElementById("listClusters")
+            .addEventListener("click", async () => {
+                const result = await fetchData("list_clusters.php");
+                document.getElementById("output").innerText = JSON.stringify(
+                    result,
+                    null,
+                    2
+                );
+            });
+
+        document
+            .getElementById("deleteCluster")
+            .addEventListener("click", async () => {
+                const result = await fetchData("delete_cluster.php");
+                document.getElementById("output").innerText = JSON.stringify(
+                    result,
+                    null,
+                    2
+                );
+            });
+    </script>
+</body>
+</html>

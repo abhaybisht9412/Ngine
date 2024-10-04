@@ -71,18 +71,18 @@ body {
 
 
 #output {
-  margin-top: 20px; /* Space above the output */
-  margin-bottom: 50px; /* Add space below the output */
-  border: 1px solid #ccc; /* Border style */
-  padding: 15px; /* Inner padding */
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-  border-radius: 5px; /* Rounded corners */
-  width: 50rem; /* Set the desired width */
-  height: 200px; /* Tripled height */
-  max-height: 300px; /* Increased max height */
-  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
-  color: #333; /* Text color */
-  margin-left: auto; /* Center horizontally */
-  margin-right: auto; /* Center horizontally */
-
+  padding: 5rem;
+  margin-top: 20px; 
+  margin-bottom: 50px; 
+  border: 1px solid #111111; 
+  padding: 15px 60px; 
+  background: rgb(27, 27, 27);
+  border-radius: 5px; 
+  width: 70rem; 
+  height: 500px; 
+  max-height: 300px; 
+  overflow-y: auto; 
+  color: #fafafa; 
+  margin-left: auto; 
+  margin-right: auto; 
 }

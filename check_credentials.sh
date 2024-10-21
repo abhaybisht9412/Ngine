@@ -22,4 +22,3 @@ if aws iam list-users >/dev/null 2>&1; then
 else
     echo "Invalid Credentials"
 fi
-

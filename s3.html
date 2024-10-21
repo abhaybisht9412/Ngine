@@ -40,10 +40,10 @@
             let success = true; // Track overall success
 
             while (true) {
-                const { done, value } = await reader.read();
+                const { done, value: chunk } = await reader.read();
                 if (done) break;
 
-                const lines = decoder.decode(value, { stream: true }).split('\n');
+                const lines = decoder.decode(chunk, { stream: true }).split('\n');
                 lines.forEach(line => {
                     if (line) {
                         try {

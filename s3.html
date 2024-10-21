@@ -15,17 +15,24 @@
             alt="OpeNgine"
         />
         <button class="button" id="createBucket">Create Bucket</button>
-        <button class="button" id="listBuckets">List Buckets</button>
+        <a href="https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1#">
+            <button class="button" id="listBuckets">List Buckets</button>
+        </a>
         <button class="button" id="deleteBucket">Delete Bucket</button>
     </div>
 
     <div id="output"></div>
 
     <script>
-        async function createBucket() {
-            document.getElementById("output").innerHTML = "Creating bucket... Please wait.";
-            
-            const response = await fetch("create_bucket.php", { method: "POST" });
+        async function createBucket(value) {
+            document.getElementById("output").innerHTML = "Processing bucket... Please wait.";
+            const response = await fetch("create_bucket.php", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ value }) // Send the value as JSON
+            });
             const reader = response.body.getReader();
             const decoder = new TextDecoder("utf-8");
 
@@ -39,7 +46,7 @@
                     if (line) {
                         try {
                             const parsed = JSON.parse(line);
-                            document.getElementById("output").innerHTML += <pre>${parsed.output}</pre>;
+                            document.getElementById("output").innerHTML += `<pre>${parsed.output}</pre>`;
                         } catch (e) {
                             console.warn('Could not parse line:', line);
                         }
@@ -48,18 +55,28 @@
             }
         }
 
-        document.getElementById("createBucket").addEventListener("click", createBucket);
+        document.getElementById("createBucket").addEventListener("click", () => {
+            createBucket(12); // Pass a value greater than 10
+        });
 
-        // Placeholder functions for list and delete (implement these as needed)
+        document.getElementById("deleteBucket").addEventListener("click", () => {
+            createBucket(8); // Pass a value less than or equal to 10
+        });
+
+        // Placeholder function for list (implement as needed)
         document.getElementById("listBuckets").addEventListener("click", async () => {
             const result = await fetchData("list_buckets.php");
             document.getElementById("output").innerText = JSON.stringify(result, null, 2);
         });
 
-        document.getElementById("deleteBucket").addEventListener("click", async () => {
-            const result = await fetchData("delete_bucket.php");
-            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
-        });
+        async function fetchData(url) {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }
     </script>
 </body>
 </html>
+

@@ -85,10 +85,21 @@ select{
     color: white;
     background-color: #f87c44;
     width: 20%;
-    float: right;;
+    float: right;
     border-radius: 4px;
 }
 .btnRegister:hover{
     background-color: #FFF;
+    color: black;
+}
+.btnCheck{
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    padding: 9px;
+    margin-left: 20px;
+}
+.btnCheck:hover{
+    background: #fff;
     color: black;
 }

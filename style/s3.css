@@ -71,6 +71,7 @@ body {
 
 
 #output {
+  opacity: 0.9;
   padding: 5rem;
   margin-top: 20px; 
   margin-bottom: 50px; 

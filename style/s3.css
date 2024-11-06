@@ -1,3 +1,4 @@
+
 body {
   font-family: 'DM Sans', sans-serif;
   margin: 0;
@@ -14,7 +15,7 @@ body {
   background-size: cover;
   line-height: 1.5;
 }
- h1 {
+h1 {
   font-size: 2.5rem;
   color: #ffffff;
   text-shadow:
@@ -38,10 +39,8 @@ body {
   cursor: pointer;
   transition: transform 0.2s;
 }
-.container:hover{
+.container:hover {
   transform: scale(1.05);
-  /* background: #bbb7b1; */
-
   background: rgb(27, 27, 27);
 }
 
@@ -61,7 +60,6 @@ body {
 .button:hover {
   background-color: #ccc;
   transform: scale(1.05);
-  /* color: black; */
 }
 
 #logo_img {
@@ -69,21 +67,117 @@ body {
   margin-left: 25px;
 }
 
-
 #output {
+/*  visibility: hidden;*/
   opacity: 0.9;
   padding: 5rem;
-  margin-top: 20px; 
-  margin-bottom: 50px; 
-  border: 1px solid #111111; 
-  padding: 15px 60px; 
+  margin-top: 20px;
+  margin-bottom: 50px;
+  border: 1px solid #111111;
+  padding: 15px 60px;
   background: rgb(27, 27, 27);
-  border-radius: 5px; 
-  width: 70rem; 
-  height: 500px; 
-  max-height: 300px; 
-  overflow-y: auto; 
-  color: #fafafa; 
-  margin-left: auto; 
-  margin-right: auto; 
+  border-radius: 5px;
+  width: 42rem;
+  height: 500px;
+  max-height: 300px;
+  overflow-y: auto;
+  color: #fafafa;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.status {
+  padding: 3rem 0;
+}
+
+.container-new {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.status-box {
+  background-color: rgb(27, 27, 27);
+  opacity: 0.9;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  /* color: #4a5568; Dark gray */
+}
+
+.order-id {
+  background-color: #c6f6d5; /* Light green */
+  color: #f87c44; /* Green */
+  padding: 0.5rem 1rem;
+  border-radius: 9999px; /* Full rounded */
+  font-size: 0.75rem;
+}
+
+.pipeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.circle {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  background-color: #ffffff; /* Light gray */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(48, 48, 48);
+  font-weight: bold;
+  z-index: 1; /* Bring the circle above the line */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.circle:hover {
+  background-color: #e2e8f0; /* Optional: change background color on hover */
+}
+
+.completed .circle {
+  background-color: #f87c44; /* Green */
+}
+
+.stage:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.5rem; /* Adjust based on circle size */
+  left: 100%; /* Position to the right of the stage */
+  width: 8rem; /* Increase the width of the line */
+  height: 2px; /* Thickness of the line */
+  background-color: #e2e8f0; /* Light gray */
+}
+
+.status_line {
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.status_line.completed {
+  color: #f87c44; /* Green */
+}
+
+.status_line:not(.completed) {
+  color: #a0aec0; /* Light gray */
 }

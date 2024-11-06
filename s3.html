@@ -15,53 +15,81 @@
             alt="OpeNgine"
         />
         <button class="button" id="createBucket">Create Bucket</button>
-        <a href="https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1#">
+        <a href="list_buckets.html">
             <button class="button" id="listBuckets">List Buckets</button>
         </a>
         <button class="button" id="deleteBucket">Delete Bucket</button>
     </div>
 
+    <section class="status">
+        <div class="container-new">
+            <div class="status-box">
+                <div class="header">
+                    <h1 style="margin-left: 15rem;">Status Check</h1>
+                </div>
+                <div class="pipeline">
+                    <div class="stage" id="stage-docker-build">
+                        <div class="circle">1</div>
+                        <span class="status_line">Building Image</span>
+                    </div>
+                    <div class="stage" id="stage-back-bucket">
+                        <div class="circle">2</div>
+                        <span class="status_line">State Bucket</span>
+                    </div>
+                    <div class="stage" id="stage-fin-bucket-1">
+                        <div class="circle">3</div>
+                        <span class="status_line">Bucket-1</span>
+                    </div>
+                    <div class="stage" id="stage-fin-bucket-2">
+                        <div class="circle">4</div>
+                        <span class="status_line">Bucket-2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div id="output"></div>
 
     <script>
         async function performBucketAction(value) {
-            document.getElementById("output").innerHTML = "Processing... Please wait.";
-            const response = await fetch("create_bucket.php", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ value })
-            });
-
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder("utf-8");
-
-            let success = true; // Track overall success
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                const lines = decoder.decode(value, { stream: true }).split('\n');
-                lines.forEach(line => {
-                    if (line) {
-                        try {
-                            const parsed = JSON.parse(line);
-                            document.getElementById("output").innerHTML += `<pre>${parsed.output}</pre>`;
-                            // Check if the line indicates an error
-                            if (parsed.output.includes('error')) {
-                                success = false; // Mark as failed if any error is found
-                            }
-                        } catch (e) {
-                            console.warn('Could not parse line:', line);
-                        }
-                    }
+            try {
+                // Change circles to orange when processing starts
+                document.querySelectorAll('.circle').forEach(circle => {
+                    circle.style.backgroundColor = '#f87c44';
                 });
-            }
 
-            // Show alert based on success after all output has been streamed
-            alert(success ? (value > 10 ? "Bucket created successfully!" : "Bucket deleted successfully!") : (value > 10 ? "Bucket creation failed." : "Bucket deletion failed."));
+                document.getElementById("output").innerHTML = "Processing... Please wait.";
+                const response = await fetch("create_bucket.php", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ value })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+
+                const result = await response.json();
+                const success = result.success;
+                const action = result.action;
+
+                // Show success or failure alert
+                alert(success ? (value > 10 ? "Bucket created successfully!" : "Bucket deleted successfully!") : (value > 10 ? "Bucket creation failed." : "Bucket deletion failed."));
+
+                // Change circles to green after processing completes
+                document.querySelectorAll('.circle').forEach(circle => {
+                    circle.style.backgroundColor = 'rgb(57, 241, 88)';
+                });
+
+                // Clear previous output
+                document.getElementById("output").innerHTML = "";
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById("output").innerHTML = "An error occurred: " + error.message;
+            }
         }
 
         document.getElementById("createBucket").addEventListener("click", () => {
@@ -72,10 +100,33 @@
             performBucketAction(8); // Pass a value less than or equal to 10 for deletion
         });
 
+        // Add event listeners for each stage to show logs on click
+        document.querySelectorAll('.stage').forEach(stage => {
+            stage.addEventListener('click', async () => {
+                const stageId = stage.id.replace('stage-', ''); // Get the stage ID
+                try {
+                    const response = await fetch(`fetch_logs.php?stage=${stageId}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const result = await response.json();
+                    if (result.success) {
+                        document.getElementById("output").innerHTML = `<h2>${stageId.replace('-', ' ').replace('fin ', '')} Logs</h2><pre>${result.logs}</pre>`;
+                    } else {
+                        document.getElementById("output").innerHTML = `<h2>Error</h2><pre>${result.message}</pre>`;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById("output").innerHTML = "An error occurred: " + error.message;
+                }
+            });
+        });
+
         // Placeholder function for listing buckets (implement as needed)
         document.getElementById("listBuckets").addEventListener("click", async () => {
             const result = await fetchData("list_buckets.php");
-            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
+            // document.getElementById("output").innerText = JSON.stringify(result, null, 2);
         });
 
         async function fetchData(url) {
@@ -86,5 +137,6 @@
             return response.json();
         }
     </script>
+
 </body>
 </html>

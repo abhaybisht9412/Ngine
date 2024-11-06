@@ -1,5 +1,7 @@
 <?php
-// create_bucket.php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 header('Connection: keep-alive');
 
@@ -9,14 +11,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $value = $data['value']; // Get the value from the JSON payload
 
     // Change to the specified directory
-    chdir('/home/ubuntu/OpeNgine-2');
-
+    chdir('/app/OpeNgine-2');
+    
     $action = ($value > 10) ? "apply" : "destroy"; // Determine action based on value
+
+    // Define the full_output.txt log file path
+    $fullLogFile = '/var/www/html/logs/full_output.txt';
+
+    // Clear the full output file at the beginning of each request
+    file_put_contents($fullLogFile, ""); // Reset the log file
 
     // Start a process to execute the commands and pipe output
     $process = popen("sudo make build-docker 2>&1; sudo EXE_COMMAND=$action make docker-run 2>&1", 'r');
-
-    $success = true; // Variable to track if the operation was successful
 
     if (is_resource($process)) {
         // Stream the output
@@ -24,25 +30,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $line = fgets($process);
             if ($line !== false) {
                 $output = trim($line); // Collect output
-                echo json_encode(['output' => $output]); // Send output as JSON
-                flush(); // Flush the output buffer
-                ob_flush(); // Flush the output buffer
-                usleep(100000); // Add a small delay to avoid overwhelming the client
-                // Check if the output indicates a failure
-                if (strpos($line, 'error') !== false) {
-                    $success = false;
+
+                // Write output to the full_output.txt file
+                if (file_put_contents($fullLogFile, $output . "\n", FILE_APPEND) === false) {
+                    error_log("Failed to write output to $fullLogFile");
                 }
             }
         }
         pclose($process);
     } else {
-        echo json_encode(['output' => 'Failed to start the process.']);
-        $success = false; // Mark as failed if the process could not be started
+        file_put_contents($fullLogFile, "Failed to start the process.\n", FILE_APPEND);
+        error_log("Failed to open process for command execution.");
     }
 
-    // Final success status is sent in the last JSON response
-    echo json_encode(['success' => $success, 'action' => $action]);
+    // Respond with a success message
+    echo json_encode(['success' => true, 'action' => $action]);
 } else {
-    echo json_encode(['message' => 'Invalid request method.']);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
 ?>

@@ -1,0 +1,95 @@
+body {
+  background-color: #f7fafc; /* Light gray background */
+  font-family: Arial, sans-serif;
+}
+
+.status {
+  padding: 3rem 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.status-box {
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #4a5568; /* Dark gray */
+}
+
+.order-id {
+  background-color: #c6f6d5; /* Light green */
+  color: #38a169; /* Green */
+  padding: 0.5rem 1rem;
+  border-radius: 9999px; /* Full rounded */
+  font-size: 0.75rem;
+}
+
+.pipeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.circle {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  background-color: #e2e8f0; /* Light gray */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  z-index: 1; /* Bring the circle above the line */
+}
+
+.completed .circle {
+  background-color: #48bb78; /* Green */
+}
+
+.stage:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.5rem; /* Adjust based on circle size */
+  left: 100%; /* Position to the right of the stage */
+
+  width: 8rem; /* Increase the width of the line */
+  height: 2px; /* Thickness of the line */
+  background-color: #e2e8f0; /* Light gray */
+}
+
+.status_line {
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.status_line.completed {
+  color: #38a169; /* Green */
+}
+
+.status_line:not(.completed) {
+  color: #a0aec0; /* Light gray */
+}

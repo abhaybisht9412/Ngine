@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/list_buckets.css">
+    <title>List Buckets</title>
+</head>
+<body>
+    <h1>AWS S3 Buckets</h1>
+    <div class="container-new">
+        <div id="bucket-list" class="bucket-list"></div>
+    </div>
+
+    <script>
+        async function fetchBuckets() {
+            try {
+                const response = await fetch('list_buckets.php');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                displayBuckets(data);
+            } catch (error) {
+                console.error('Error fetching buckets:', error);
+                document.getElementById('bucket-list').innerHTML = '<p>Error fetching bucket list.</p>';
+            }
+        }
+
+        function displayBuckets(buckets) {
+            const bucketList = document.getElementById('bucket-list');
+            bucketList.innerHTML = ''; // Clear previous content
+
+            if (buckets.error) {
+                bucketList.innerHTML = `<p>${buckets.error}</p>`;
+                return;
+            }
+
+            buckets.forEach(bucket => {
+                const bucketCard = document.createElement('div');
+                bucketCard.className = 'container';
+                bucketCard.innerHTML = `
+                    <h2>${bucket.Name}</h2>
+                    <p>Creation Date: ${new Date(bucket.CreationDate).toLocaleDateString()}</p>
+                    <button class="button">View Bucket</button>
+                `;
+                bucketList.appendChild(bucketCard);
+            });
+        }
+
+        // Fetch the buckets when the page loads
+        document.addEventListener('DOMContentLoaded', fetchBuckets);
+    </script>
+</body>
+</html>

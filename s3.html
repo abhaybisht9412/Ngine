@@ -53,13 +53,15 @@
 
     <script>
         async function performBucketAction(value) {
+            document.getElementById("output").innerHTML = "Processing... Please wait.";
+
             try {
                 // Change circles to orange when processing starts
                 document.querySelectorAll('.circle').forEach(circle => {
                     circle.style.backgroundColor = '#f87c44';
                 });
 
-                document.getElementById("output").innerHTML = "Processing... Please wait.";
+                // Send request to create or delete bucket based on value
                 const response = await fetch("create_bucket.php", {
                     method: "POST",
                     headers: {
@@ -74,7 +76,6 @@
 
                 const result = await response.json();
                 const success = result.success;
-                const action = result.action;
 
                 // Show success or failure alert
                 alert(success ? (value > 10 ? "Bucket created successfully!" : "Bucket deleted successfully!") : (value > 10 ? "Bucket creation failed." : "Bucket deletion failed."));
@@ -86,6 +87,7 @@
 
                 // Clear previous output
                 document.getElementById("output").innerHTML = "";
+
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById("output").innerHTML = "An error occurred: " + error.message;

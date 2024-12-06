@@ -42,7 +42,7 @@
                 bucketCard.innerHTML = `
                     <h2>${bucket.Name}</h2>
                     <p>Creation Date: ${new Date(bucket.CreationDate).toLocaleDateString()}</p>
-                    <button class="button">View Bucket</button>
+                    <a href="recent_logs.html"><button class="button">View Bucket</button></a>
                 `;
                 bucketList.appendChild(bucketCard);
             });

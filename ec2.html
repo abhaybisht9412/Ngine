@@ -3,62 +3,150 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/s3.css" />
-    <title>EC2 Management</title>
+    <link rel="stylesheet" href="./style/ec2.css" />
+    <title>Instance Management</title>
 </head>
 <body>
-    <h1>EC2 Management</h1>
+    <h1>Instance Management</h1>
     <div class="container">
-        <img
-            id="logo_img"
-            src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg"
-            alt="OpeNgine"
-        />
-        <button class="button" id="launchInstance">Launch Instance</button>
-        <button class="button" id="listInstances">List Instances</button>
+        <img id="logo_img" src="https://www.globallogic.com/wp-content/uploads/2021/03/GL_Icon_OpeNgine_DarkBG.svg" alt="OpeNgine" />
+        <button class="button" id="createInstance">Create Instance</button>
+        <a href="https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1#">
+            <button class="button" id="listInstances">List Instances</button>
+        </a>
         <button class="button" id="deleteInstance">Delete Instance</button>
     </div>
+
+    <section class="status">
+        <div class="container-new">
+            <div class="status-box">
+                <div class="header">
+                    <h1 style="margin-left: 15rem;">Status Check</h1>
+                </div>
+                <div class="pipeline">
+                    <div class="stage" id="stage-docker-build">
+                        <div class="circle">1</div>
+                        <span class="status_line">Building Image</span>
+                    </div>
+                    <div class="stage" id="stage-back-bucket">
+                        <div class="circle">2</div>
+                        <span class="status_line">State Bucket</span>
+                    </div>
+                    <div class="stage" id="stage-fin-bucket-1">
+                        <div class="circle">3</div>
+                        <span class="status_line">VPC & Components</span>
+                    </div>
+                    <div class="stage" id="stage-fin-bucket-2">
+                        <div class="circle">4</div>
+                        <span class="status_line">asg - windows</span>
+                    </div>
+                    <div class="stage" id="stage-asg-linux">
+                        <div class="circle">5</div>
+                        <span class="status_line">asg - linux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div id="output"></div>
 
     <script>
-        async function fetchData(endpoint) {
-            const response = await fetch(endpoint, { method: "POST" });
+        const logs = {
+            "docker-build": [],
+            "back-bucket": [],
+            "fin-bucket-1": [],
+            "fin-bucket-2": [],
+            "asg-linux": []  // Adding a log for the 5th stage
+        };
+
+        async function performBucketAction(value, asgec2) {
+            document.getElementById("output").innerHTML = "Processing... Please wait.";
+            const response = await fetch("create_bucket.php", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ value, ec2instance: asgec2 }) // Pass asgec2 along with value
+            });
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const lines = decoder.decode(value, { stream: true }).split('\n');
+                lines.forEach(line => {
+                    if (line) {
+                        try {
+                            const parsed = JSON.parse(line);
+                            if (parsed.stage) {
+                                logs[parsed.stage].push(parsed.output); // Store log for that stage
+                            }
+                            // Display live output
+                            document.getElementById("output").innerHTML += `<pre>${parsed.output}</pre>`;
+                        } catch (e) {
+                            console.warn('Could not parse line:', line);
+                        }
+                    }
+                });
+            }
+
+            alert(value > 10 ? "Bucket created successfully!" : "Bucket deletion successful!");
+
+            // If bucket creation was successful, mark all stages as completed
+            if (value > 10) {
+                const stages = document.querySelectorAll('.stage');
+                stages.forEach(stage => {
+                    stage.classList.add('completed'); // Add completed class to each stage
+                });
+            }
+        }
+
+        document.getElementById("createInstance").addEventListener("click", () => {
+            const path_variable = "asgec2"; // Set your desired string value here
+            performBucketAction(12, path_variable); // Pass a value greater than 10 for creation
+        });
+
+        document.getElementById("deleteInstance").addEventListener("click", () => {
+            const path_variable = "asgec2"; // Set your desired string value here
+            performBucketAction(8, path_variable); // Pass a value less than or equal to 10 for deletion
+        });
+
+        // Placeholder function for listing buckets (implement as needed)
+        document.getElementById("listInstances").addEventListener("click", async () => {
+            const result = await fetchData("list_buckets.php");
+            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
+        });
+
+        async function fetchData(url) {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
             return response.json();
         }
 
-        document
-            .getElementById("launchInstance")
-            .addEventListener("click", async () => {
-                const result = await fetchData("launch_instance.php");
-                document.getElementById("output").innerText = JSON.stringify(
-                    result,
-                    null,
-                    2
-                );
-            });
+        // Add click event listeners to the stages
+        document.querySelectorAll('.stage').forEach(stage => {
+            stage.addEventListener('click', () => {
+                const stageId = stage.id.replace('stage-', ''); // Get the ID without 'stage-'
 
-        document
-            .getElementById("listInstances")
-            .addEventListener("click", async () => {
-                const result = await fetchData("list_instances.php");
-                document.getElementById("output").innerText = JSON.stringify(
-                    result,
-                    null,
-                    2
-                );
-            });
+                // Check if there are logs for this stage
+                if (logs[stageId].length > 0) {
+                    const logMessages = logs[stageId]; // Retrieve logs for the clicked stage
 
-        document
-            .getElementById("deleteInstance")
-            .addEventListener("click", async () => {
-                const result = await fetchData("delete_instance.php");
-                document.getElementById("output").innerText = JSON.stringify(
-                    result,
-                    null,
-                    2
-                );
+                    // Display logs in the output div
+                    document.getElementById("output").innerHTML = logMessages.join('\n');
+                    document.getElementById("output").style.visibility = 'visible'; // Make output visible
+                } else {
+                    document.getElementById("output").innerHTML = `No logs available for ${stageId}.`;
+                }
             });
+        });
     </script>
+
 </body>
 </html>

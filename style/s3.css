@@ -1,4 +1,3 @@
-
 body {
   font-family: 'DM Sans', sans-serif;
   margin: 0;
@@ -10,7 +9,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.90)), url("../img/img3.jpg");
+  background-image:  url("../img/img3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   line-height: 1.5;
@@ -64,7 +63,7 @@ h1 {
 
 #logo_img {
   width: 11rem;
-  margin-left: 25px;
+  margin-left: 50px;
 }
 
 #output {
@@ -155,7 +154,7 @@ h1 {
 }
 
 .completed .circle {
-  background-color: #f87c44; /* Green */
+  background-color: #5aeb88; /* Green */
 }
 
 .stage:not(:last-child)::after {
@@ -175,7 +174,7 @@ h1 {
 }
 
 .status_line.completed {
-  color: #f87c44; /* Green */
+  color: #5aeb88; /* Green */
 }
 
 .status_line:not(.completed) {

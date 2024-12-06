@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Logs</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 20px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .card button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #logOutput {
+            margin-top: 20px;
+            white-space: pre-wrap; /* Preserve line breaks in logs */
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f4f4f4;
+            max-width: 100%;
+            overflow: auto;
+            height: 400px; /* Limit height of the log output */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Recent Logs</h1>
+<div class="cards-container" id="cardsContainer"></div>
+
+<div id="logOutput"></div>
+
+<script>
+// Fetch the list of directories (installation names) from the PHP script
+async function fetchDirectories() {
+    const response = await fetch('recent_logs.php');
+    const data = await response.json();
+
+    if (data.directories) {
+        const cardsContainer = document.getElementById('cardsContainer');
+        cardsContainer.innerHTML = ''; // Clear any existing content
+
+        // Create a card for each directory (installation name)
+        data.directories.forEach(directory => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            // Create a title and button for the card
+            card.innerHTML = `
+                <h3>${directory}</h3>
+                <button onclick="viewLogs('${directory}')">VIEW FULL LOGS</button>
+            `;
+
+            // Append the card to the container
+            cardsContainer.appendChild(card);
+        });
+    } else {
+        document.getElementById('cardsContainer').innerHTML = 'No directories found.';
+    }
+}
+
+// Fetch and display all .txt files in the selected directory
+async function viewLogs(directory) {
+    const logOutput = document.getElementById('logOutput');
+    logOutput.innerHTML = 'Loading logs...'; // Show loading message
+
+    // Fetch the list of log files for the selected directory
+    const response = await fetch(`view_logs.php?directory=${directory}`);
+    const data = await response.json();
+
+    if (data.files) {
+        // Display the contents of each .txt file
+        logOutput.innerHTML = ''; // Clear existing log content
+        data.files.forEach(file => {
+            const fileContent = document.createElement('div');
+            fileContent.innerHTML = `<strong>${file.name}</strong><br><pre>${file.content}</pre>`;
+            logOutput.appendChild(fileContent);
+        });
+    } else {
+        logOutput.innerHTML = 'No logs available or error loading logs.';
+    }
+}
+
+// Initialize by fetching the directories when the page loads
+window.onload = fetchDirectories;
+</script>
+
+</body>
+</html>

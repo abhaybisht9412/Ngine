@@ -1,0 +1,1 @@
+*/2 * * * * sudo chown -R www-data:www-data /var/www/html/recent_logs && sudo chmod -R 775 /var/www/html/recent_logs && /usr/bin/php /var/www/html/clean_recent_logs.php
